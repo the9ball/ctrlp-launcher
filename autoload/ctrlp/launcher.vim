@@ -2,7 +2,10 @@ if exists('g:loaded_ctrlp_launcher') && g:loaded_ctrlp_launcher
   finish
 endif
 let g:loaded_ctrlp_launcher = 1
-let g:filename_ctrlp_launcher = '~/.ctrlp-launcher'
+
+if !exists('g:filename_ctrlp_launcher')
+	let g:filename_ctrlp_launcher = '~/.ctrlp-launcher'
+endif
 
 let s:launcher_var = {
 \  'init':   'ctrlp#launcher#init()',
@@ -23,7 +26,7 @@ endif
 function! ctrlp#launcher#init()
   let file = fnamemodify(expand(g:filename_ctrlp_launcher), ':p')
   let s:list = filereadable(file) ? filter(map(readfile(file), 'split(iconv(v:val, "utf-8", &encoding), "\\t\\+")'), 'len(v:val) > 0 && v:val[0]!~"^#"') : []
-  let s:list += [["--edit-menu--", "split ~/.ctrlp-launcher"]]
+  let s:list += [["--edit-menu--", "split ".g:filename_ctrlp_launcher]]
   return map(copy(s:list), 'v:val[0]')
 endfunc
 
