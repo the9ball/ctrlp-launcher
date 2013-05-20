@@ -3,7 +3,7 @@ if exists('g:loaded_ctrlp_launcher') && g:loaded_ctrlp_launcher
 endif
 let g:loaded_ctrlp_launcher = 1
 
-if !exists('g:filename_ctrlp_launcher')
+if !exists('g:filename_ctrlp_launcher') || empty(g:filename_ctrlp_launcher)
 	let g:filename_ctrlp_launcher = '~/.ctrlp-launcher'
 endif
 
